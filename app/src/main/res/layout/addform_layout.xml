@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:minHeight="40dp"
+        android:text="Add New"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:hint="id"
+                android:inputType="text"
+                android:minHeight="40dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/addid"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:hint="name"
+                android:inputType="text"
+                android:minHeight="40dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/addname"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:hint="mobile no"
+                android:inputType="number"
+                android:maxLength="10"
+                android:minHeight="40dp"
+                android:id="@+id/addnumber"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:hint="address"
+                android:id="@+id/addaddress"
+                android:inputType="text"
+                android:minHeight="40dp"
+                android:paddingLeft="10dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_marginBottom="10dp"
+                android:hint="date of birth"
+                android:id="@+id/adddob"
+                android:inputType="date"
+                android:minHeight="40dp"
+                android:paddingLeft="10dp" />
+
+            <Button
+                android:id="@+id/addsubmit"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Submit" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
