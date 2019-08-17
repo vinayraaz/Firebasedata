@@ -16,12 +16,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".6"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -57,18 +60,23 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/orderaccept"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".4"
                 android:gravity="bottom"
                 android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/textvalue"/>
 
                 <Button
+                    android:id="@+id/orderaccept"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
-                    android:text="Allout"
+                    android:text="Allot"
                     android:layout_gravity="center" />
             </LinearLayout>
         </LinearLayout>

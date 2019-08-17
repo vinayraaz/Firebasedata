@@ -34,8 +34,9 @@ public class DeliveryBoyAdapter extends RecyclerView.Adapter<DeliveryBoyAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull DeliveryBoyViewHolder holder, int position) {
-        System.out.println("NAme***********"+registerModules.get(position).getNameValue());
-        holder.Name.setText(registerModules.get(position).getNameValue());
+        holder.Name.setText("Name : " + registerModules.get(position).getNameValue());
+        holder.Add.setText("Address : "+ registerModules.get(position).getAddValue());
+        holder.Mobile.setText("Mobile : "+ registerModules.get(position).getMobileValue());
 
     }
 
@@ -45,10 +46,12 @@ public class DeliveryBoyAdapter extends RecyclerView.Adapter<DeliveryBoyAdapter.
     }
 
     public class DeliveryBoyViewHolder extends RecyclerView.ViewHolder {
-        public TextView Name;
+        public TextView Name,Add,Mobile;
         public DeliveryBoyViewHolder(@NonNull View itemView) {
             super(itemView);
             Name=(TextView)itemView.findViewById(R.id.name);
+            Add=(TextView)itemView.findViewById(R.id.add);
+            Mobile=(TextView)itemView.findViewById(R.id.mobile);
         }
     }
 }

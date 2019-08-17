@@ -31,7 +31,6 @@ public class DeliveryBoyList extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.deliveryboy_listlayout);
         databaseArtists = FirebaseDatabase.getInstance().getReference("new_user");
-//        datadisplay();
     }
 
 
@@ -52,19 +51,6 @@ public class DeliveryBoyList extends AppCompatActivity{
                     RegisterModule note = noteSnapshot.getValue(RegisterModule.class);
                     registerModules.add(note);
                 }
-               /* for (int i=0;i<registerModules.size();i++){
-                    if (!ConstantClass.CURRENTUSER_NAME.equals(registerModules.get(i).getName())){
-                        friendLists.add(new FriendList(registerModules.get(i).getUserId(),registerModules.get(i).getName(),registerModules.get(i).getEmail(),
-                                registerModules.get(i).getPassword(),registerModules.get(i).getMobile(),registerModules.get(i).getGender()));
-
-
-                    }else {
-                        registerModules.remove(i);
-                    }
-
-                }*/
-               // System.out.println("message********friendLists"+friendLists.size());
-                System.out.println("message********registerModules"+registerModules.size());
                 ContactListData(registerModules);
 
 

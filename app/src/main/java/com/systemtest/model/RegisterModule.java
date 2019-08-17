@@ -3,6 +3,7 @@ package com.systemtest.model;
 public class RegisterModule {
     private String userId;
     private String idValue,nameValue,mobileValue,addValue,dobValue;
+    private Integer deliveryBoyStatus;
 
     public RegisterModule() {
     }
@@ -14,6 +15,17 @@ public class RegisterModule {
         this.mobileValue = mobileValue;
         this.addValue = addValue;
         this.dobValue = dobValue;
+
+    }
+
+    public RegisterModule(String userId, String idValue, String nameValue, String mobileValue, String addValue, String dobValue, int deliveryBoyStatus) {
+        this.userId =userId;
+        this.idValue = idValue;
+        this.nameValue = nameValue;
+        this.mobileValue = mobileValue;
+        this.addValue = addValue;
+        this.dobValue = dobValue;
+        this.deliveryBoyStatus = deliveryBoyStatus;
     }
 
     public String getUserId() {
@@ -64,5 +76,11 @@ public class RegisterModule {
         this.dobValue = dobValue;
     }
 
+    public Integer getDeliveryBoyStatus() {
+        return deliveryBoyStatus;
+    }
 
+    public void setDeliveryBoyStatus(Integer deliveryBoyStatus) {
+        this.deliveryBoyStatus = deliveryBoyStatus;
+    }
 }

@@ -3,7 +3,7 @@ package com.systemtest.model;
 public class DeliveryBoyListModel {
     private String userId;
     private String idValue,nameValue,mobileValue,addValue,dobValue;
-
+    private Integer deliveryBoyStatus;
     public DeliveryBoyListModel() {
     }
 
@@ -14,6 +14,23 @@ public class DeliveryBoyListModel {
         this.mobileValue = mobileValue;
         this.addValue = addValue;
         this.dobValue = dobValue;
+    }
+    public DeliveryBoyListModel(String userId, String idValue, String nameValue, String mobileValue, String addValue, String dobValue, int deliveryBoyStatus) {
+        this.userId =userId;
+        this.idValue = idValue;
+        this.nameValue = nameValue;
+        this.mobileValue = mobileValue;
+        this.addValue = addValue;
+        this.dobValue = dobValue;
+        this.deliveryBoyStatus = deliveryBoyStatus;
+    }
+
+    public Integer getDeliveryBoyStatus() {
+        return deliveryBoyStatus;
+    }
+
+    public void setDeliveryBoyStatus(Integer deliveryBoyStatus) {
+        this.deliveryBoyStatus = deliveryBoyStatus;
     }
 
     public String getUserId() {
