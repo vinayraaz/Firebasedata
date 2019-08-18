@@ -29,6 +29,7 @@ import com.systemtest.MainActivity;
 import com.systemtest.OrderList;
 import com.systemtest.R;
 import com.systemtest.model.DeliveryBoyListModel;
+import com.systemtest.model.OrderAssignModule;
 import com.systemtest.model.OrderModel;
 import com.systemtest.model.OrderModule;
 import com.systemtest.model.RegisterModule;
@@ -49,6 +50,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     String orderposition;
     ListView simpleList;
     ProgressDialog pd;
+    FirebaseDatabase mFirebaseInstance;
+    DatabaseReference orderAssignReference;
+    private String orderId, orderName, orderDetails, orderAdd;
+    String deliveryBid, deliveryBName, deliveryBMobile, deliveryBStatus;
+    Integer orderStatus = 1;
 
     public OrderListAdapter(Context context, List<OrderModule> orderModels) {
         this.context = context;
@@ -67,9 +73,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     @Override
     public void onBindViewHolder(@NonNull OrderListAdapter.OrderViewHolder holder, final int position) {
-        holder.orderId.setText("Order Details : "+ orderModels.get(position).getOrderDetails());
-        holder.orderName.setText("Order Name : "+ orderModels.get(position).getOrderName());
-        holder.orderAdd.setText("Order Address : " +orderModels.get(position).getOrderAdd());
+        holder.orderId.setText("Order Details : " + orderModels.get(position).getOrderDetails());
+        holder.orderName.setText("Order Name : " + orderModels.get(position).getOrderName());
+        holder.orderAdd.setText("Order Address : " + orderModels.get(position).getOrderAdd());
         int orderstatus = orderModels.get(position).getOrderStatus();
 
         if (orderstatus == 0) {
@@ -88,9 +94,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 pd.setMessage("Loading...");
                 pd.show();
                 orderposition = orderModels.get(position).getOrderId();
+
+                orderId = orderModels.get(position).getOrderId();
+                orderName = orderModels.get(position).getOrderName();
+                orderDetails = orderModels.get(position).getOrderDetails();
+                orderAdd = orderModels.get(position).getOrderAdd();
+                System.out.println("orderId*** " + orderId + " *** " + orderName + "**** " + orderDetails + "**** " + orderAdd);
                 DBoyLoad();
 
-           }
+            }
         });
 
     }
@@ -104,7 +116,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 pd.dismiss();
                 deliveryBoyListModels.clear();
-
+                orderModels1.clear();
                 for (DataSnapshot noteSnapshot : dataSnapshot.getChildren()) {
                     DeliveryBoyListModel note = noteSnapshot.getValue(DeliveryBoyListModel.class);
                     deliveryBoyListModels.add(note);
@@ -122,10 +134,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 final View addformView = factory.inflate(R.layout.order_layout, null);
                 final AlertDialog formDialog = new AlertDialog.Builder(context).create();
                 formDialog.setView(addformView);
-                try{
+                try {
                     formDialog.show();
                     simpleList = (ListView) addformView.findViewById(R.id.simpleListView);
-
                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, R.layout.list_view_items, R.id.textView, orderModels1);
                     simpleList.setAdapter(arrayAdapter);
 
@@ -133,9 +144,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String name = parent.getItemAtPosition(position).toString();
-                            for(int i=0;i<deliveryBoyListModels.size();i++){
-                                if (name.equals(deliveryBoyListModels.get(i).getNameValue())){
+                            for (int i = 0; i < deliveryBoyListModels.size(); i++) {
+                                if (name.equals(deliveryBoyListModels.get(i).getNameValue())) {
+
                                     OUserId = deliveryBoyListModels.get(i).getUserId().toString();
+
+                                    deliveryBid = deliveryBoyListModels.get(i).getUserId().toString();
+                                    deliveryBName = deliveryBoyListModels.get(i).getNameValue().toString();
+                                    deliveryBMobile = deliveryBoyListModels.get(i).getMobileValue().toString();
+                                    deliveryBStatus = deliveryBoyListModels.get(i).getDeliveryBoyStatus().toString();
                                     updateData();
                                 }
                             }
@@ -143,15 +160,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
                         }
                     });
-                }catch (WindowManager.BadTokenException e){
-                    Log.i("ERROR******" ,e.getMessage());
+                } catch (WindowManager.BadTokenException e) {
+                    Log.i("ERROR******", e.getMessage());
                 }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("ERRORFIREBase",databaseError.toString());
+                Log.i("ERRORFIREBase", databaseError.toString());
 
             }
         });
@@ -160,7 +177,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     private void updateData() {
         updatabase = FirebaseDatabase.getInstance().getReference("new_user");
         updatabase.child(OUserId).child("deliveryBoyStatus").setValue(1);
-        Toast.makeText(context, "Delivery Boy Allotted Success", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Delivery Boy Allotted Success", Toast.LENGTH_SHORT).show();
 
         OrderStatus();
         Intent intent = new Intent(context, MainActivity.class);
@@ -172,6 +189,18 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         updateOrder = FirebaseDatabase.getInstance().getReference("order_data");
         updateOrder.child(orderposition).child("orderStatus").setValue(1);
 
+//order assign delivery boy
+
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+        orderAssignReference = FirebaseDatabase.getInstance().getReference("Order_Assign");
+
+        OrderAssignModule orderAssignModule = new OrderAssignModule(orderId, orderName, orderDetails, orderAdd,
+                deliveryBid, deliveryBName, deliveryBMobile, orderStatus);
+        orderAssignReference.child(deliveryBid).setValue(orderAssignModule);
+        Toast.makeText(context, "Order Assign successful", Toast.LENGTH_LONG).show();
+
+
+
     }
 
     @Override
@@ -180,7 +209,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView orderId, orderName, orderAdd,OrderValue;
+        public TextView orderId, orderName, orderAdd, OrderValue;
         public Button llButton;
 
         public OrderViewHolder(@NonNull View itemView) {

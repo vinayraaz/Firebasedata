@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:hint="id"
-                android:inputType="text"
+                android:inputType="number"
                 android:minHeight="40dp"
                 android:paddingLeft="10dp"
                 android:id="@+id/addid"/>
@@ -62,7 +62,7 @@
                 android:layout_margin="2dp"
                 android:hint="address"
                 android:id="@+id/addaddress"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:minHeight="40dp"
                 android:paddingLeft="10dp" />
 
